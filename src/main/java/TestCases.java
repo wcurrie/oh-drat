@@ -1,12 +1,14 @@
+import commons.TheTragedy;
 import org.junit.Test;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static commons.TheTragedy.dumpLine;
+import static commons.TheTragedy.log;
+import static commons.TheTragedy.snooze;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -107,29 +109,4 @@ public abstract class TestCases {
 
     protected abstract void cancelTask(String name);
 
-    static void dumpLine(String name) {
-        Thread info = getThread(name);
-        log(name + " is " + (info == null ? " missing" : at(info.getState(), info.getStackTrace())));
-    }
-
-    static String at(Thread.State state, StackTraceElement[] stackTrace) {
-        return state + ": " + (stackTrace.length == 0 ? "" : stackTrace[0].toString());
-    }
-
-    static Thread getThread(String name) {
-        return Thread.getAllStackTraces().keySet().stream().filter((t) -> t.getName().equals(name)).findFirst().orElse(null);
-    }
-
-    static void snooze(long ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException e) {
-            log("woken - how rude");
-        }
-    }
-
-    static void log(String m) {
-        String now = ZonedDateTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
-        System.out.println(now + " [" + Thread.currentThread().getName() + "]: " + m);
-    }
 }

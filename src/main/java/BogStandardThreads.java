@@ -1,3 +1,5 @@
+import commons.TheTragedy;
+
 public class BogStandardThreads extends TestCases {
 
     @Override
@@ -9,7 +11,7 @@ public class BogStandardThreads extends TestCases {
 
     @Override
     protected void cancelTask(String name) {
-        getThread(name).interrupt();
+        TheTragedy.getThread(name).interrupt();
     }
 
 }

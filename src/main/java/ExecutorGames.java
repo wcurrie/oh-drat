@@ -1,3 +1,4 @@
+import commons.TheTragedy;
 import org.junit.After;
 import org.junit.Before;
 
@@ -30,7 +31,7 @@ public class ExecutorGames extends TestCases {
     @Override
     protected void cancelTask(String name) {
         boolean cancel = futures.get(name).cancel(true);
-        log("future reckons " + name + " is cancelled " + cancel);
+        TheTragedy.log("future reckons " + name + " is cancelled " + cancel);
     }
 
     private Runnable nameAndRun(String name, Runnable task) {
